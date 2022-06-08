@@ -17,12 +17,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import id.novian.challengechapter8.R
+import id.novian.challengechapter8.viewmodel.RegisterScreenViewModel
 
 @Composable
-fun RegisterScreen(navController: NavHostController) {
+fun RegisterScreen(navController: NavHostController, viewModel: RegisterScreenViewModel) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,5 +117,6 @@ fun TextFieldPasswordAndConfirm(label: String) {
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
-    RegisterScreen(rememberNavController())
+    val viewModel = hiltViewModel<RegisterScreenViewModel>()
+    RegisterScreen(rememberNavController(), viewModel)
 }

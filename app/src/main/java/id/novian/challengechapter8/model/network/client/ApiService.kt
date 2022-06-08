@@ -1,3 +1,18 @@
 package id.novian.challengechapter8.model.network.client
 
-interface ApiService
+import id.novian.challengechapter8.model.network.model.detail.MovieDetailsResponse
+import id.novian.challengechapter8.model.network.model.popular.MoviePopularResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+
+interface ApiService {
+    @GET("movie/popular")
+    suspend fun getPopularMovie(@Query("api_key") apiKey: String): MoviePopularResponse
+
+    @GET("movie/{id}")
+    suspend fun getDetailsById(
+        @Query("api_key") apiKey: String,
+        @Path("id") id: Int
+    ): MovieDetailsResponse
+}

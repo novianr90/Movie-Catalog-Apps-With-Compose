@@ -85,11 +85,13 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha02"
 
+    //livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+
     //Hilt
     implementation 'com.google.dagger:hilt-android:2.42'
     kapt 'com.google.dagger:hilt-compiler:2.42'
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
-
 
     //room database
     implementation 'androidx.room:room-runtime:2.4.2'
@@ -109,4 +111,6 @@ dependencies {
     // data store
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
+    //Glide Landscapist
+    implementation "com.github.skydoves:landscapist-glide:1.5.2"
 }
