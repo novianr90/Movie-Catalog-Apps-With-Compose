@@ -1,9 +1,11 @@
 package id.novian.challengechapter8.ui.screen
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import id.novian.challengechapter8.viewmodel.*
 
 @Composable
@@ -45,11 +47,16 @@ fun Setup(
             )
         }
 
-        composable("detail") {
+        composable("detail/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) {
+            val idMovie = it.arguments?.getInt("id") ?: 0
+
             DetailScreen(
-                navController = navController,
+                idMovie,
                 viewModel = detailScreenViewModel
             )
+
         }
     }
 }

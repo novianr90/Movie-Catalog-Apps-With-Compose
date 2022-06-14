@@ -2,7 +2,8 @@ package id.novian.challengechapter8.repository
 
 import android.content.Context
 import id.novian.challengechapter8.model.local.LocalDatabase
-import id.novian.challengechapter8.model.local.Profile
+import id.novian.challengechapter8.model.local.profile.Profile
+import id.novian.challengechapter8.model.local.source.MoviePopularResponseSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -31,5 +32,15 @@ class LocalRepository(context: Context) {
 
     suspend fun getUsernameByEmail(email: String) = withContext(Dispatchers.IO) {
         db?.profileDao()?.getUsernameByEmail(email)
+    }
+
+    //Movie
+    suspend fun insertMovie(moviePopularResponseSource: MoviePopularResponseSource) =
+        withContext(Dispatchers.IO) {
+            db?.movieSourceDao()?.insert(moviePopularResponseSource)
+        }
+
+    suspend fun getMovieSource() = withContext(Dispatchers.IO) {
+        db?.movieSourceDao()?.getMovieSource()
     }
 }

@@ -1,24 +1,26 @@
 package id.novian.challengechapter8.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.novian.challengechapter8.helper.Resource
+import id.novian.challengechapter8.model.network.model.detail.MovieDetailsResponse
 import id.novian.challengechapter8.repository.NetworkRepository
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailScreenViewModel
 @Inject constructor(private val networkRepository: NetworkRepository) : ViewModel() {
 
-    fun getDetailsMovieById(id: Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
+    private var _data = MutableLiveData<MovieDetailsResponse>()
+    val data: LiveData<MovieDetailsResponse> get() = _data
 
-        try {
-            emit(Resource.success(data = networkRepository.getDetailsById(id)))
-        } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message ?: "Error Occurred"))
+    fun getDetailsMovieById(id: Int) {
+        viewModelScope.launch {
+            _data.postValue(networkRepository.getDetailsById(id))
         }
     }
+
 }

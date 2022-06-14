@@ -1,14 +1,11 @@
 package id.novian.challengechapter8.ui.screen
 
-import android.view.animation.OvershootInterpolator
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -42,21 +39,8 @@ fun SplashScreen(navController: NavHostController, viewModel: SplashViewModel) {
         )
     }
 
-    val scale = remember {
-        androidx.compose.animation.core.Animatable(0f)
-    }
 
-    //Animation
     LaunchedEffect(key1 = true) {
-        scale.animateTo(
-            targetValue = 0.7f,
-            animationSpec = tween(
-                durationMillis = 800,
-                easing = {
-                    OvershootInterpolator(4f).getInterpolation(it)
-                }
-            )
-        )
 
         //Navigate
         delay(2000L)

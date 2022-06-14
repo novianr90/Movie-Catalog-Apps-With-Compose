@@ -1,7 +1,8 @@
 package id.novian.challengechapter8.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,25 +18,40 @@ class LoginScreenViewModel
     private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
 
+    //Username
+    var email by mutableStateOf("")
+
+    fun emailOnChange(newString: String) {
+        email = newString
+    }
+
+    //Password
+    var password by mutableStateOf("")
+    var passwordVisible by mutableStateOf(false)
+
+    fun passwordOnChange(newString: String) {
+        password = newString
+    }
+
     //Check
-    private var _checked = MutableLiveData<Boolean>()
-    val checked: LiveData<Boolean> get() = _checked
+    var checked by mutableStateOf(false)
+        private set
 
-    private var _error = MutableLiveData<String>()
-    val error: LiveData<String> get() = _error
+    var errorMessage by mutableStateOf("")
+        private set
 
-    fun checkEmailAndPassword(email: String, pass: String) {
+    fun checkEmailAndPassword() {
         viewModelScope.launch {
             val emailData = localRepository.getEmail(email)
-            val passwordData = localRepository.getPassword(pass)
+            val passwordData = localRepository.getPassword(password)
 
             if (emailData.isNullOrEmpty() || passwordData.isNullOrEmpty()) {
-                _checked.postValue(false)
-                _error.postValue("Profile Already Exist")
+                checked = false
+                errorMessage = "Profile Not Found"
             } else {
-                _checked.postValue(true)
+                checked = true
                 sharedPreferences.saveEmail(email)
-                _error.postValue("Welcome, $email")
+                sharedPreferences.saveStatusLogin()
             }
         }
     }

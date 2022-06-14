@@ -1,4 +1,4 @@
-package id.novian.challengechapter8.model.local
+package id.novian.challengechapter8.model.local.profile
 
 import androidx.room.Dao
 import androidx.room.Insert

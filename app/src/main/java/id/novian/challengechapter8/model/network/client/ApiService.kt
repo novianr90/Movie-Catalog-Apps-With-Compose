@@ -12,7 +12,7 @@ interface ApiService {
 
     @GET("movie/{id}")
     suspend fun getDetailsById(
-        @Query("api_key") apiKey: String,
-        @Path("id") id: Int
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String
     ): MovieDetailsResponse
 }

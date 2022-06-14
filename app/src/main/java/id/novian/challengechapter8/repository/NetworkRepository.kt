@@ -7,5 +7,5 @@ class NetworkRepository(private val apiService: ApiService) {
     private val apiKey = BuildConfig.API_KEY
 
     suspend fun getMoviePopular() = apiService.getPopularMovie(apiKey)
-    suspend fun getDetailsById(id: Int) = apiService.getDetailsById(apiKey, id)
+    suspend fun getDetailsById(id: Int) = apiService.getDetailsById(id, apiKey)
 }
